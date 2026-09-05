@@ -17,10 +17,12 @@ Two-axis level indicator. PlatformIO project, megaTinyCore, `Upload_UPDI` env (A
 - `src/main.cpp` - power latch, button state machine, orientation, calibration, auto-off, UI.
 - `lib/SmoothLedCcl/` - vendored `SmoothLedCcl.h` from mattshepcar/SmoothLed (MIT), patched so
   the PC0/ASYNCCH2 branch compiles on 0-series parts. Do not add the registry SmoothLed lib.
-- `arduino/` - original hardware bring-up sketch, reference only (not built).
+- `hardware/` - Altium project + schematic PDF. `images/` - renders used by `README.md`.
+- `README.md` - full user/hardware/firmware documentation; keep it in sync with `config.h`.
 
 ## Notes
-- `millis()` uses TCA0 (`-DMILLIS_USE_TIMERA0`), leaving TCB0 free for the LED bit timer.
+- `millis()` uses TCA0 (`MILLIS_USE_TIMERA0`, defined by the PlatformIO ATtiny1606 board
+  manifest, not in `platformio.ini`), leaving TCB0 free for the LED bit timer.
 - Keep RAM small: 1 KB total. LED buffer is 168 B. Avoid floats in the loop and Adafruit libs.
 - Orientation: button picks the up axis (X/Y/Z); the sign of gravity along it is auto-detected,
   giving 5 cases in `AXIS_MAP` (axis mapping, signs and display rotation). UI is drawn in
